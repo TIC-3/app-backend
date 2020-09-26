@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jmartinezmattos/app-backend#readme",
   "dependencies": {
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "mongoose": "^5.10.7",
     "passport": "^0.4.1"
