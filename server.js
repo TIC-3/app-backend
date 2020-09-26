@@ -3,10 +3,11 @@ const app = express()
 
 app.set('port', process.env.PORT || 3000);
 
-var cors = require('cors')
-app.use(cors())
+const login = require('./src/routes/login');
+const profesores = require('./src/routes/profesores');
 
-//conectar a bdd
-mongoose.connect(process.env.DATABASE_URL, { useUnifiedTopology: true, useNewUrlParser: true })
-    .then(db => console.log('DB connected'))//tira este mensaje si se conecto
-    .catch(err => console.log(err))//tira esto si no conecto
+app.use('/login', login);
+app.use('/profesores', profesores);
+
+app.listen(app.get('port'), () => console.log(`Server started at port ${app.get('port')}`))
+
