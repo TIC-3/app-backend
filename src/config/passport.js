@@ -2,7 +2,7 @@
 
 const passport = require("passport");
 const LocalStrategy = require('passport-local').Strategy;
-const Cliente = require('../models/cliente')
+const Alumno = require('../models/alumno')
 const validPassword = require('../lib/passwordUtils').validPassword;
 
 //const customFields = {//para nombrar los campos como quiero
@@ -14,7 +14,7 @@ const validPassword = require('../lib/passwordUtils').validPassword;
 //esta funcion se encarga de verificar que el usuario se al posta
 const verifyCallback = (username, password, done) => { //hay que nombrarlos username y password si no definis custom fields
     
-    Cliente.findOne({username: username})
+    Alumno.findOne({username: username})
         .then((user) => {
 
             if(!user){
@@ -47,11 +47,11 @@ passport.use(strategy)
 
 passport.serializeUser((user, done)=>{
     console.log("Serialize user")
-    done(null, user.id)//OJO VER LO DEL ID y si user no es cliente
+    done(null, user.id)//OJO VER LO DEL ID y si user no es Alumno
 })
 
 passport.deserializeUser((userId, done) => {
-    Cliente.findById(userId)
+    Alumno.findById(userId)
     .then((user) => {
         done(null, user);
     })
