@@ -2,7 +2,8 @@ const router = require('express').Router();
 const Profesor = require('../models/profesor')
 const Alumno = require('../models/alumno');
 const bycript = require('bcrypt');
-const profesor = require('../models/profesor');
+const alumno = require('../models/alumno');
+const generatePassword = require('../lib/passwordUtils').generatePassword;
 
 router.post('/alumno', async (req, res) => {
     try {
@@ -11,7 +12,7 @@ router.post('/alumno', async (req, res) => {
         const salt = saltHash.salt;
         const hash = saltHash.hash;
 
-        alumno = new Alumno({
+        const alumno = new Alumno({
            username: req.body.username,
            nombre: req.body.name,
            mail: req.body.mail,
@@ -19,9 +20,12 @@ router.post('/alumno', async (req, res) => {
            hash: hash,
            salt: salt
        })
+
+        const newAlumno = await alumno.save()
+        res.status(201).json(newAlumno)
        
-    } catch (error) {
-        res.send(error)
+    } catch (err) {
+        res.status(400).json({message: err.message})
     }
 })
 
