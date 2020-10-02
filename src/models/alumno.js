@@ -7,7 +7,6 @@ const AlumnoSchema = new Schema({
     username: { 
         type: String,
         unique : true,
-        index: true,
         required: true
      },
      nombre: {
