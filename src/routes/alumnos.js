@@ -12,6 +12,15 @@ router.get('/', async (req, res)=> {
     }
 })
 
+router.get('/myinfo', async (req, res)=> {
+    try{
+        const alumnos = await Alumno.find()
+        res.json(alumnos)
+    }catch{
+        res.status(500).json({message: err.message})
+    }
+})
+
 //Getting one
 router.get('/:username', getAlumno,(req, res)=> {
     res.send(res.Alumno)

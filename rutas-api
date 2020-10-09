@@ -1,0 +1,8 @@
+
+
+POST:
+    /register/alumno   
+         Registra un alumno
+
+    /register/profesor
+        Registra un profesor
