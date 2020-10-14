@@ -1,7 +1,7 @@
-/*
 
-module.exports.isAuth = (req, res, next) => {
-    if(req.isAuthenticated()){
+
+module.exports.isAlumno = (req, res, next) => {
+    if(req.isAuthenticated() && req.user.tipo == 'alumno'){
         next();
     }
     else{
@@ -11,8 +11,8 @@ module.exports.isAuth = (req, res, next) => {
     //req.username = req.user.username //podria hacer esto para despues devolver las cosas dentro de cada usuario
 }
 
-module.exports.isAdmin = (req, res, next) => {
-    if(req.isAuthenticated() && req.user.admin){
+module.exports.isProfesor = (req, res, next) => {
+    if(req.isAuthenticated() && req.user.tipo == 'profesor'){
         next();
     }
     else{
@@ -20,6 +20,5 @@ module.exports.isAdmin = (req, res, next) => {
     }
 }
 
-*/
 
 //Hay que adaptar esto

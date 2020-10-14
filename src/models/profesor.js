@@ -18,7 +18,11 @@ const ProfesorSchema = new Schema({
      nro_contacto: String,
      mail: String,
      hash: String,
-     salt: String
+     salt: String,
+     tipo: {
+        type: String,
+        default: "p"
+    },
 
 })
 

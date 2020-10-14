@@ -20,13 +20,13 @@ const app = express()
 //////Passport begin
     //app.use(cookieParser('secreto'))
     
-    app.use(session({
-        secret: 'secreto',
-        resave: true,
-        saveUninitialized: true
-    }))
+app.use(session({
+     secret: 'secreto',
+     resave: true,
+     saveUninitialized: true
+}))
 
-    passport.use(new LocalStrategy(function(username, password, done){
+passport.use(new LocalStrategy(function(username, password, done){
 
         Alumno.findOne({username: username})
         .then((user) => {
@@ -64,6 +64,19 @@ const app = express()
         })
 
     }))
+
+passport.serializeUser((user, done)=>{
+     console.log("Serialize user")
+      done(null, user.id)//OJO VER LO DEL ID y si user no es Alumno
+})
+    
+passport.deserializeUser((userId, done) => {
+       Alumno.findById(userId)
+      .then((user) => {
+          done(null, user);
+      })
+      .catch(err => done(err))
+})
 
 
 /////Passport end

@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const AlumnoSchema = new Schema({
 
+    tipo: {
+        type: String,
+        default: 'a'
+    },
     username: { 
         type: String,
         unique : true,
