@@ -1,7 +1,7 @@
 
 
 module.exports.isAlumno = (req, res, next) => {
-    if(req.isAuthenticated() && req.user.tipo == 'alumno'){
+    if(req.isAuthenticated() && req.user.tipo == 'a'){
         next();
     }
     else{
@@ -12,7 +12,7 @@ module.exports.isAlumno = (req, res, next) => {
 }
 
 module.exports.isProfesor = (req, res, next) => {
-    if(req.isAuthenticated() && req.user.tipo == 'profesor'){
+    if(req.isAuthenticated() && req.user.tipo == 'p'){
         next();
     }
     else{
