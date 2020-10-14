@@ -18,8 +18,12 @@ const validPassword = require('./src/lib/passwordUtils').validPassword;
 const app = express()
 
 //////Passport begin
-    //app.use(cookieParser('secreto'))
-    
+//app.use(cookieParser('secreto'))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(session({
      secret: 'secreto',
      resave: true,
