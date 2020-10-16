@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const VenueSchema = new Schema({
+
+    house: Boolean,
+    address: String,
+    lat: Number,
+    lng: Number,
+    movementkm: Number
+
+})
 
 const ProfesorSchema = new Schema({
 
@@ -23,6 +32,22 @@ const ProfesorSchema = new Schema({
         type: String,
         default: "p"
     },
+    comments: {
+        type: Array 
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
+    schedule: {
+        type: Array
+    },
+    venue: {
+        type: [VenueSchema]
+    }
+
+
+
 
 })
 
