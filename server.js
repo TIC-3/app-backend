@@ -7,6 +7,7 @@ const passport = require('passport');
 const session = require('express-session')
 const bodyparser = require("body-parser");
 const LocalStrategy = require('passport-local').Strategy;
+const MongoStore = require('connect-mongo')(session);
 
 
 const Alumno = require('./src/models/alumno')
@@ -69,6 +70,8 @@ passport.use(new LocalStrategy(function(username, password, done){
 
     }))
 
+const strategy = new LocalStrategy( /*customFields,*/ verifyCallback)
+
 passport.serializeUser((user, done)=>{
      console.log("Serialize user")
       done(null, user.id)//OJO VER LO DEL ID y si user no es Alumno
@@ -103,10 +106,51 @@ const myinfo = require('./src/routes/myinfo');
 const { Passport } = require('passport');
 const alumno = require('./src/models/alumno');
 
+
+var cors = require('cors')
+app.use(cors())
+
 //conectar a bdd
 mongoose.connect(process.env.DATABASE_URL, { useUnifiedTopology: true, useNewUrlParser: true })
     .then(db => console.log('DB connected'))//tira este mensaje si se conecto
     .catch(err => console.log(err))//tira esto si no conecto
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    } else {
+        next();
+    }
+});
+    
+
+const sessionStore = new MongoStore({
+    mongooseConnection: mongoose.connection,
+    collection: 'sessions'
+})
+
+app.use(session({
+    secret: "secreto", //despues cambiarlo por variable de ambiente
+    name:"cookie-vital",
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    sameSite: 'none',
+    cookie: {
+        maxAge: 1000*60*60*24 //esto es un dia
+    }
+}))
+
+app.use((req, res, next) => {
+    console.log(req.session);
+    console.log(req.user);
+    next();
+})
+
 
 
 //Json middleware para que reconozca las entradas como json
