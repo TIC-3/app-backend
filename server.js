@@ -99,6 +99,7 @@ const login = require('./src/routes/login');
 const register = require('./src/routes/register');
 const profesores = require('./src/routes/profesores');
 const alumnos = require('./src/routes/alumnos');
+const myinfo = require('./src/routes/myinfo');
 const { Passport } = require('passport');
 const alumno = require('./src/models/alumno');
 
@@ -119,6 +120,7 @@ app.use('/login', login);
 app.use('/register', register)
 app.use('/profesores', profesores);
 app.use('/alumnos', alumnos);
+app.use('/myinfo', myinfo);
 
 app.listen(app.get('port'), () => console.log(`Server started at port ${app.get('port')}`))
 
