@@ -70,7 +70,7 @@ passport.use(new LocalStrategy(function(username, password, done){
 
     }))
 
-const strategy = new LocalStrategy( /*customFields,*/ verifyCallback)
+//const strategy = new LocalStrategy( /*customFields,*/ verifyCallback)
 
 passport.serializeUser((user, done)=>{
      console.log("Serialize user")

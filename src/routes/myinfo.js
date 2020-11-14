@@ -4,12 +4,12 @@ const isAlumno = require('../authMiddleware').isAlumno;
 const router = express.Router()
 
 //Getting user info
-router.get('/', isAlumno, async (req, res) => {
+router.get('/', async (req, res) => {
     //Chequear seguridad, se esta enviando el salt y el hash al usuario
     datos = req.user
-    datos.hash = null
-    datos.salt = null
-    res.send(datos)
+    //datos.hash = null
+    //datos.salt = null
+    res.send(req)
 })
 
 //Cambiar pasword
